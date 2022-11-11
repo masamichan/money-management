@@ -13,10 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-# 以下２行を編集
+  username: user
   password: pass
-  host: db
+  host: localhost
 
 development:
   <<: *default
