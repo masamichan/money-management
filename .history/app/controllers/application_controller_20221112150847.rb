@@ -99,8 +99,6 @@ class ApplicationController < ActionController::Base
     @parent_class = parent.class.to_s
   end
 
-  
-
 
 
 

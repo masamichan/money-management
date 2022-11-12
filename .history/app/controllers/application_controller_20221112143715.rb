@@ -88,18 +88,6 @@ class ApplicationController < ActionController::Base
   end
 
   
-  def get_company_id
-    current_user.current_company || session['current_company'] || current_user.first_company_id
-  end
-
-  def get_clients_and_items
-    parent = Company.find(params[:company_id] || get_company_id)
-    @get_clients = get_clients(parent)
-    @get_items = get_items(parent)
-    @parent_class = parent.class.to_s
-  end
-
-  
 
 
 

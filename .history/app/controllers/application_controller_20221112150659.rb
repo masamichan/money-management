@@ -95,11 +95,7 @@ class ApplicationController < ActionController::Base
   def get_clients_and_items
     parent = Company.find(params[:company_id] || get_company_id)
     @get_clients = get_clients(parent)
-    @get_items = get_items(parent)
-    @parent_class = parent.class.to_s
   end
-
-  
 
 
 
