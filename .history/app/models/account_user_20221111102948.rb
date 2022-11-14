@@ -1,2 +1,0 @@
-class AccountUser < ApplicationRecord
-end
