@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   before_action :_reload_libs
   before_action :cofigure_permitted_parameters, if: :device_controller?
 
-  acts_as_token_authentication User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
+  acts_as_token_authentication_handler_for User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
   rescue_from Pundit::NoAuthorizedError, with: :user_not_authorized
   layout Proc.new {'login' if device_controller? }
 

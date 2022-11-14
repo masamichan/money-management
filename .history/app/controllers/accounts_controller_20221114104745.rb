@@ -76,16 +76,11 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /companies/1
-  # DELETE /companies/1.json
-  def destroy
-    @account = Account.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to companies_url }
-      format.json { head :no_content }
-    end
-  end
+
+
+
+
 
   private
 

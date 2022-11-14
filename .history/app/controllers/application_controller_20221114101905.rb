@@ -59,22 +59,17 @@ class ApplicationController < ActionController::Base
   end
 
   def encryptor
-    secret = Digest::SHA1.hexdigest("yourpass")
-    ActiveSupport::MessageEncryptor.new(secret)
+    secrect = Digest::SHA1.hexdigest("yourpass")
+    ActiveSupport::MessageEncryptor.new(secrect)
   end
 
   def encrypt(message)
-    e = encryptor
+    e = encrytor
     e.encrypt(message)
   end
 
-  def decrypt(message)
-    e = encryptor
-    e.decrypt(message)
-  end
-
   def choose_layout
-    %w(preview payments_history).include?(action_name) ? 'preview_mode' : 'application'
+    %w(preview payments_history).include?(action_name) ? 'preview_mode' : 'appolication'
   end
 
   def associate_entity(params, entity)
@@ -83,7 +78,7 @@ class ApplicationController < ActionController::Base
     ActiveRecord::Base.transaction do
       if action_name == 'update'
         entities = controller == 'email_templates' ? CompanyEmailTemplate.where(template_id: entity.id) : CompanyEntity.where(entity_id: entity.id, entity_type: entity.class.to_s)
-        entities.map(&:destroy) if entities.present?
+        entityes.map(&:destroy) if entityes.present?
       end
 
       Company.multiple(ids).each{|campany| company.send(controller) << entity } unless ids.blank?

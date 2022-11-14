@@ -48,44 +48,13 @@ class AccountsController < ApplicationController
   # POST /companies.json
   def create
     @account = current_user.accounts.build(account_params)
-
-    respond_to do |format|
-      if.current_user.save
-        format.html { redirect_to edit_account_url(@account), 'Account was successfully created.' }
-        format.json { rendoer json: @account, status: :created, location: @account }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @account.errors, stauts: :unprocessable_entity }
-      end
-    end
   end
 
-  # PUT /companies/1
-  # PUT /companies/1.json
-  def update
-    @account = Account.find(params[:id])
 
-    respond_to do |format|
-      if @account.update_attributes(account_params)
-        format.html { redirect_to :back, notice: 'Your account has been updated successfully.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  # DELETE /companies/1
-  # DELETE /companies/1.json
-  def destroy
-    @account = Account.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to companies_url }
-      format.json { head :no_content }
-    end
-  end
+
+
 
   private
 
@@ -113,5 +82,110 @@ class AccountsController < ApplicationController
                                     :street_address_2,
                                     :time_zone)
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
