@@ -17,7 +17,7 @@ class Account < ApplicationRecord
   end
 
   def url 
-    self.try(:subdomain).present? ? 
+    self.try(:subdomain).present? ?
     "#{OSB::CONFIG::APP_PROTOCOL}://#{self.subdomain}.#{OSB::CONFIG::APP_HOST}" : "#{OSB::CONFIG::APP_PROTOCOL}://#{OSB::CONFIG::APP_HOST}"
   end
 
