@@ -12,6 +12,7 @@ class CreateClientContacts < ActiveRecord::Migration[5.2]
       t.datetime "deleted_at"
       t.datetime "created_at",     null: false
       t.datetime "updated_at",     null: false
+      
     end
   end
 end
