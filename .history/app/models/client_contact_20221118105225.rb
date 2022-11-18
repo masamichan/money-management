@@ -2,6 +2,6 @@ class ClientContact < ApplicationRecord
 
   belongs_to :client
 
-  acts_as_archival
-  acts_as_paranoid
+  act_as_archival
+  acts_asparanoid
 end
