@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include ApplicationHelper
   include PublicActivity::StoreController
-  include PublicActivity::ViewHelpers
+  include PublicActivity::VieiwHelper
 
 
   skip_before_action :verify_authenticity_token
@@ -12,17 +12,17 @@ class ApplicationController < ActionController::Base
   before_action :set_date_format
   before_action :set_current_user
   before_action :set_listing_layout
-  before_action :authenticate_user!
+  before_action :autheticate_user
   before_action :set_current_company
   before_action :set_locale
   before_action :_reload_libs
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :cofigure_permitted_parameters, if: :device_controller?
 
-  acts_as_token_authentication_handler_for User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
+  acts_as_token_authentication User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NoAuthorizedError, with: :user_not_authorized
 
-  layout Proc.new {'login' if devise_controller? }
+  layout Proc.new {'login' if device_controller? }
 
   helper_method :filter_by_company, :render_card_view?
 

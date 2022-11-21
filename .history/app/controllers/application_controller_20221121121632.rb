@@ -18,11 +18,11 @@ class ApplicationController < ActionController::Base
   before_action :_reload_libs
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  acts_as_token_authentication_handler_for User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
+  acts_as_token_authentication User, if: lambda { |env| env.request.format.json? && controller_name != 'authenticate' }
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  layout Proc.new {'login' if devise_controller? }
+  layout Proc.new {'login' if decise_controller? }
 
   helper_method :filter_by_company, :render_card_view?
 

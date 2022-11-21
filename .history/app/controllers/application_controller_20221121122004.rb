@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  layout Proc.new {'login' if devise_controller? }
+  layout Proc.new {'login' if diveise_controller? }
 
   helper_method :filter_by_company, :render_card_view?
 
