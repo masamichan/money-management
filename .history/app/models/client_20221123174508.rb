@@ -10,7 +10,9 @@ class Client < ApplicationRecord
   include ClientSearch
   include Hasid::Rails 
   include PublicActivity::Model
-  tracked only: [:create, , :update],owner: ->(controller, model) {User.current},params::{"obj"=>proc{|controller, model_instance| model.instance.changes}}
+  tracked only: [:create, , :update],
+          owner: ->(controller, model) {User.current},
+          params::{"obj"=>proc{|controller, model_instance| model.instance.changes}}
 
   scope :multiple, lambda {|ids| where('id IN(?)', ids.is_a(string) ? ids.split(',') : [*ids])}
   scope :created_at, -> (created_at) {where(created_at: created_at)}
@@ -115,22 +117,6 @@ class Client < ApplicationRecord
     mappings = {active: 'unachived', archived: 'archived', deleted: 'only_deleted'}
     mothod = mappings[params[:status].to_sym]
     self.send(method).page(params[:page]).per(params[:per])
-  end
-
-  def self.is_exists email, association
-    association.presint ? association.clients.with_deleted.where(email: email).exists? : with_deleted.where(email: email).exists?
-  end
-
-  def credit_payments
-    credit = []
-    invoices.with_deleted.each {|invoice| credit << invoice.payments.where("payment_type = 'credit").order("created_at ASC") }
-    credit << payments.first if payments.present?   #include the client's initial credit
-    credit.flatten
-  end
-
-  def old_available_credit
-    client_invoice_ids = Invoice.with_deleted.where("client_id = ?", self.id).all.pluck(:id)
-    deleted_invoices_payments = 
   end
 
 end
