@@ -93,9 +93,7 @@ class ApplicationController < ActionController::Base
   def set_current_company(elem, tbl=params[:controller])
     unless params[:company_id].blank?
       session['current_company'] = params[:company_id]
-      current_user.update_attributes(current_company: params[:company_id])
     end
-  end
 
     elem.where("#{tbl}.company_id IN(?)", get_company_id())
   end

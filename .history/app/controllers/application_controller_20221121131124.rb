@@ -95,7 +95,6 @@ class ApplicationController < ActionController::Base
       session['current_company'] = params[:company_id]
       current_user.update_attributes(current_company: params[:company_id])
     end
-  end
 
     elem.where("#{tbl}.company_id IN(?)", get_company_id())
   end
