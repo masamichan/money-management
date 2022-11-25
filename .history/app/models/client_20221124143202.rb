@@ -130,47 +130,11 @@ class Client < ApplicationRecord
 
   def old_available_credit
     client_invoice_ids = Invoice.with_deleted.where("client_id = ?", self.id).all.pluck(:id)
-
-    #total credit
-    deleted_invoices_payments = Payment.where("payment_method = 'credit' AND invoice_id in (?)", client_invoice_ids).all
-    client_total_credit = deleted.invoices_payments.sun(:payment_account)
-    client_total_credit =+ slef.payments.first.payment_amount.to_f rescue 0
-
-    #avail credit     client_avil_credit = client_payment.sum{|f|.payment_amount}
-    client_payments = Payment.where("payment_method = 'credit'  AND invoice_id_in(?)", client_invoice_ids).all
-    client_debit = client_payments.sum(:payment_amount)
-
-    #Total available credit of client
-    client_available_credit = client_total_credit - client_debit
-    client_available_credit
+    deleted_invoices_payments = Payment.where("payment_method = 'credit AND invoice")
   end
 
-  def first_payment
-    self.payment.first
-  end
-
-  def client_available_credit
-    fir.company.try(:payment_amount)
-  end
-
-  def add_available_credit(available_credit)
-    #payments.build({payment_amount: available_credit, payment_type: "credit", payment_date: Data.today, company_id: company_id})
-  end
-
-  def update_available_credit(available_credit)
-    payments.first_.update_attribute(:payment_amount, available_credit)
-  end
-
-  def currency_symbol
-    self.currency.present? ? self.currency.code : '$'
-  end
-
-  def currency_code
-    self.currency.present? ? self.currency.unit : 'USD'
-  end
-
-  def self.get_company(params)
-    mappings = {}
+  def 
+    
   end
     
 end

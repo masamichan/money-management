@@ -144,34 +144,6 @@ class Client < ApplicationRecord
     client_available_credit = client_total_credit - client_debit
     client_available_credit
   end
-
-  def first_payment
-    self.payment.first
-  end
-
-  def client_available_credit
-    fir.company.try(:payment_amount)
-  end
-
-  def add_available_credit(available_credit)
-    #payments.build({payment_amount: available_credit, payment_type: "credit", payment_date: Data.today, company_id: company_id})
-  end
-
-  def update_available_credit(available_credit)
-    payments.first_.update_attribute(:payment_amount, available_credit)
-  end
-
-  def currency_symbol
-    self.currency.present? ? self.currency.code : '$'
-  end
-
-  def currency_code
-    self.currency.present? ? self.currency.unit : 'USD'
-  end
-
-  def self.get_company(params)
-    mappings = {}
-  end
     
 end
 
