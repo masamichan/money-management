@@ -178,20 +178,6 @@ class Client < ApplicationRecord
     company = Company.find_by(id: params[:company_id])
 
     #get the client associated with companies
-    company_clients = company.clients
-    company_clients = company.clients.search(params[:search]).reacords if params[:search].present? and company_clients.present?
-    company_clients = company.clients.single_search([:params]) if params[:single_search].present?
-    company_clients = company.send(mappings[params[:status.to_sym]]) if params[:status].present?
-    company_clients = company_clients.created_at(
-      (Date.strptime(params[:create_ate_starte_date], date_format).in_time_zone .. Date.strptime(params[:created_at_end_date], date_format).in_timezone)
-    )if params[:created_at_start_date].present?
-    # binding pry
-    # get the account
-
-    account = params[:user].current_account
-
-    # get the clients associated with accounts
-
   end
     
 end
