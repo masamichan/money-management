@@ -179,9 +179,9 @@ class Client < ApplicationRecord
 
     #get the client associated with companies
     company_clients = company.clients
-    company_clients = company.clients.search(params[:search]).reacords 
-    company_clients = company.clients.single_search([:params]) 
-    company_clients = company.send(mappings[params[:status.to_sym]]) 
+    company_clients = company.clients.search(params[:search]).reacords if params[:search].present? and company_clients.present?
+    company_clients = company.clients.single_search([:params]) if params[:single_search].present?
+    company_clients = company.send(mappings[params[:status.to_sym]]) if params[:status].present?
     company_clients = company_clients.created_at(
       (Date.strptime(params[:create_ate_starte_date], date_format).in_time_zone .. Date.strptime(params[:created_at_end_date], date_format).in_timezone)
     )if params[:created_at_start_date].present?
@@ -192,33 +192,28 @@ class Client < ApplicationRecord
 
     # get the clients associated with accounts
     account_clients = account.clients
-    account_clients = account_clients.search(params[:params]).records 
-    account_clients = account_clients.single_search(params[:single_search]) 
-    account_clients = account_clients.send(mappings[params[:status].to_sym]) 
-    account_clients = accounts_clients.send(mapping[params[:client_email]]) 
+    account_clients = account_clients.search(params[:params]).records if params[:search].present? and company_clients.present?
+    account_clients = account_clients.single_search(params[:single_search]) if params[:single_search].present?
+    account_clients = account_clients.send(mappings[params[:status].to_sym]) if params[:stutus].present?
+    account_clients = accounts_clients.send(mapping[params[:client_email]]) if params[:client_email].present?
     account_clients = accounts_clients.created_at(
       (Date.strptime(params[:create_at_date], date_format).in_time_zone .. Date.strptime(params[:created_at], date_format).in_time_zone)
     ) if params[:create_at_start_date].present?
-    account_clients = account_clients.client_id(params[:client_id]) 
+    account_clients = account_clients.client_id(params[:client_id]) if params[:client_id].present?
 
     # get the unique clients associated with companies and account
     clients = {account_client + company_client}.uniq 
+
+    # sort clients in ascending or decesding order
+    clients = client.sort do |a, b|
+      a, b = a, b if params[:sort_direction] == 'desc'
+      params[:sort_column] = 'contact_name' if params[:sort_column].start_with?('concat')
     end
+    
+
+
   end
-
-  def create_default_currency
-    return true if self.currency.present?
-    self.currency = Currency.default_currency
-  end 
-
-  def group_date
-    created_at.strtime('%B %Y')
-  end
-
-  def client_name
-    [first_name, last_name].reject(&:blank?).collect(&:capitalize).join('')
-  end
-
+    
 end
 
 

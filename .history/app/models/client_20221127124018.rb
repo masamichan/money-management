@@ -215,9 +215,7 @@ class Client < ApplicationRecord
     created_at.strtime('%B %Y')
   end
 
-  def client_name
-    [first_name, last_name].reject(&:blank?).collect(&:capitalize).join('')
-  end
+
 
 end
 
