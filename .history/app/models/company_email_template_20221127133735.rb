@@ -1,0 +1,2 @@
+class CompanyEmailTemplate < ApplicationRecord
+end
