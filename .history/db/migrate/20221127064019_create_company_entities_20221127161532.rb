@@ -6,7 +6,8 @@ class CreateCompanyEntities < ActiveRecord::Migration[6.0]
       t.integer   "parent_id"
       t.string    "parent_type"
       t.datetime  "created_at", null: false
-      t.datetime   "updated_at", null: false
+      t.datetime   "update_at", null: false
+
     end
   end
 end

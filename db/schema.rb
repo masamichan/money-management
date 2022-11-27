@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_27_043736) do
+ActiveRecord::Schema.define(version: 2022_11_27_064019) do
 
   create_table "account_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -107,6 +107,15 @@ ActiveRecord::Schema.define(version: 2022_11_27_043736) do
     t.string "parent_type"
     t.datetime "created_at", null: false
     t.datetime "update_at", null: false
+  end
+
+  create_table "company_entities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "entity_id"
+    t.string "entity_type"
+    t.integer "parent_id"
+    t.string "parent_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
