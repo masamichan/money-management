@@ -1,0 +1,2 @@
+class CompanyEntity < ApplicationRecord
+end
