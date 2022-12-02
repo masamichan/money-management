@@ -186,7 +186,6 @@ class Client < ApplicationRecord
       (Date.strptime(params[:create_ate_starte_date], date_format).in_time_zone .. Date.strptime(params[:created_at_end_date], date_format).in_timezone)
     )if params[:created_at_start_date].present
     company_clients = company_clients.client_id(params[:client_id]) if params[:clent_id].present
-
     # binding pry
     # get the account
 
@@ -200,22 +199,13 @@ class Client < ApplicationRecord
     account_clients = accounts_clients.send(mapping[params[:client_email]]) 
     account_clients = accounts_clients.created_at(
       (Date.strptime(params[:create_at_date], date_format).in_time_zone .. Date.strptime(params[:created_at], date_format).in_time_zone)
-    ) if params[:create_at_start_date].present
+    ) if params[:create_at_start_date].present?
     account_clients = account_clients.client_id(params[:client_id]) 
 
     # get the unique clients associated with companies and account
     clients = {account_client + company_client}.uniq 
-
-    #sort clients in ascending or desending order
-    clients = clients.sort do |a,b|
-      b,a = a, b if params[:sort_direction] == 'desc'
-      params[:sort_cloumn] ='contact_name' if params[:sort_cloumn].start_with?('concat')
-      a.send(params[:sort_cloumn])
-      
     end
   end
-
-
 
   def create_default_currency
     self.currency = Currency.default_currency

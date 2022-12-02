@@ -186,7 +186,6 @@ class Client < ApplicationRecord
       (Date.strptime(params[:create_ate_starte_date], date_format).in_time_zone .. Date.strptime(params[:created_at_end_date], date_format).in_timezone)
     )if params[:created_at_start_date].present
     company_clients = company_clients.client_id(params[:client_id]) if params[:clent_id].present
-
     # binding pry
     # get the account
 
@@ -210,8 +209,6 @@ class Client < ApplicationRecord
     clients = clients.sort do |a,b|
       b,a = a, b if params[:sort_direction] == 'desc'
       params[:sort_cloumn] ='contact_name' if params[:sort_cloumn].start_with?('concat')
-      a.send(params[:sort_cloumn])
-      
     end
   end
 
